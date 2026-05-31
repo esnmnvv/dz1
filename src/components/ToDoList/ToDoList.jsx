@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, setTaskName } from "../../store/input-slice";
+import {
+  addTask,
+  setTaskName,
+  DeleteTask,
+  ToggleTask,
+} from "../../store/input-slice";
 import "./style.css";
 
 const ToDoList = () => {
@@ -28,7 +33,14 @@ const ToDoList = () => {
           return (
             <div className="task" key={task.id}>
               <h2>{task.title}</h2>
-              <input checked={task.completed} type="checkbox" />
+              <input
+                checked={task.done}
+                onChange={() => dispatch(ToggleTask({ id: task.id }))}
+                type="checkbox"
+              />
+              <button onClick={() => dispatch(DeleteTask({ id: task.id }))}>
+                Delete
+              </button>
             </div>
           );
         })}
